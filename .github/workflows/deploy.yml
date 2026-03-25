@@ -30,8 +30,22 @@ jobs:
 
     - name: Deploy with PM2
       run: |
-        # Install PM2 globally if not already installed (optional, assuming it is since other apps are running)
+        # Define deployment path (using current user's home directory)
+        DEPLOY_PATH="$HOME/Projects/dffinity-sa-char-viewer"
+        
+        # Create directory if it doesn't exist
+        mkdir -p "$DEPLOY_PATH"
+        
+        # Copy build artifacts to the persistent location
+        # Remove old dist to ensure clean state, then move new dist
+        rm -rf "$DEPLOY_PATH/dist"
+        cp -r dist "$DEPLOY_PATH/"
+        
+        # Install PM2 globally if not already installed
         npm install -g pm2
+        
+        # Navigate to the deployment path to ensure PM2 commands run from there
+        cd "$DEPLOY_PATH"
         
         # Check if the process is already running
         if pm2 describe dffinity-viewer > /dev/null; then
