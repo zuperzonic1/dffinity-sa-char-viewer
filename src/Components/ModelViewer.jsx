@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import FileUpload from './FileUpload';
 import ControlPanel from './ControlPanel';
@@ -9,6 +10,7 @@ import { ErrorToast, SuccessToast } from './Notifications';
 
 const ModelViewer = () => {
     window.Buffer = Buffer;
+    const navigate = useNavigate();
 
     const [modelData, setModelData] = useState(null);
     const [textureData, setTextureData] = useState(null);
@@ -50,7 +52,11 @@ const ModelViewer = () => {
         <div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col lg:flex-row">
             {/* Header for mobile */}
             <div className="lg:hidden flex-shrink-0 bg-slate-800/50 backdrop-blur-sm border-b border-purple-500/20 p-4 flex justify-center">
-                <div className="relative inline-block">
+                <div 
+                    className="relative inline-block cursor-pointer active:scale-95 transition-transform" 
+                    onClick={() => navigate('/')}
+                    title="Return to Home"
+                >
                     <div className="absolute inset-0 bg-slate-900/90 rounded-full blur-sm"></div>
                     <img src="/DFFinity-logo.png" alt="DFFinity Logo" className="h-14 relative z-10" />
                 </div>
@@ -61,7 +67,11 @@ const ModelViewer = () => {
                 <div className="p-6">
                     {/* Logo/Title for desktop */}
                     <div className="hidden lg:block mb-8 text-center">
-                        <div className="relative mb-4 inline-block">
+                        <div 
+                            className="relative mb-4 inline-block cursor-pointer hover:scale-105 active:scale-95 transition-transform" 
+                            onClick={() => navigate('/')}
+                            title="Return to Home"
+                        >
                             <div className="absolute inset-0 bg-slate-900/90 rounded-full blur-sm"></div>
                             <img src="/DFFinity-logo.png" alt="DFFinity Logo" className="h-24 relative z-10" />
                         </div>
