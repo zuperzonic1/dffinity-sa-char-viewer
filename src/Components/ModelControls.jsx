@@ -7,7 +7,9 @@ const ModelControls = ({
     wireframe, 
     onWireframeToggle,
     backgroundColor,
-    onBackgroundColorChange
+    onBackgroundColorChange,
+    fillLightIntensity,
+    onFillLightChange
 }) => {
     return (
         <div className="absolute top-4 right-4 bg-slate-800/30 backdrop-blur-sm border border-purple-500/20 rounded-lg p-4 space-y-3 z-10">
@@ -61,6 +63,26 @@ const ModelControls = ({
                         <span className="text-xs text-slate-400 font-mono">{backgroundColor}</span>
                     </div>
                 </div>
+
+                {/* Fill Light Intensity */}
+                <div className="bg-slate-700/50 rounded border border-slate-600/50 p-3 space-y-2">
+                    <label className="text-xs text-slate-300 font-medium">Fill Light</label>
+                    <input
+                        type="range"
+                        min="0"
+                        max="2"
+                        step="0.1"
+                        value={fillLightIntensity}
+                        onChange={(e) => onFillLightChange(parseFloat(e.target.value))}
+                        className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                        title="Adjust Fill Light Intensity"
+                    />
+                    <div className="flex justify-between text-xs text-slate-400">
+                        <span>Off</span>
+                        <span className="font-mono">{fillLightIntensity.toFixed(1)}</span>
+                        <span>Bright</span>
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -74,6 +96,8 @@ ModelControls.propTypes = {
     onWireframeToggle: PropTypes.func.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     onBackgroundColorChange: PropTypes.func.isRequired,
+    fillLightIntensity: PropTypes.number.isRequired,
+    onFillLightChange: PropTypes.func.isRequired,
 };
 
 export default ModelControls;

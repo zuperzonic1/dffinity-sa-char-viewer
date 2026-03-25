@@ -26,3 +26,4 @@ dist-ssr
 # Public folder
 public/gtasa-skins
 public/images
+.clinerules/clinerules.md

@@ -11,6 +11,7 @@ const ViewerCanvas = memo(({ renderReady, modelData, textureData, isLoading }) =
     const [isAnimating, setIsAnimating] = useState(false);
     const [wireframe, setWireframe] = useState(false);
     const [backgroundColor, setBackgroundColor] = useState('#1a1f36');
+    const [fillLightIntensity, setFillLightIntensity] = useState(0.8);
     const [webglSupported, setWebglSupported] = useState(true);
     const [webglError, setWebglError] = useState(null);
     const controlsRef = useRef();
@@ -40,6 +41,10 @@ const ViewerCanvas = memo(({ renderReady, modelData, textureData, isLoading }) =
 
     const handleBackgroundColorChange = (color) => {
         setBackgroundColor(color);
+    };
+
+    const handleFillLightChange = (intensity) => {
+        setFillLightIntensity(intensity);
     };
 
 
@@ -148,6 +153,8 @@ const ViewerCanvas = memo(({ renderReady, modelData, textureData, isLoading }) =
                         onWireframeToggle={() => setWireframe(!wireframe)}
                         backgroundColor={backgroundColor}
                         onBackgroundColorChange={handleBackgroundColorChange}
+                        fillLightIntensity={fillLightIntensity}
+                        onFillLightChange={handleFillLightChange}
                     />
                 <Canvas
                     camera={{ position: [0, 5, 8], fov: 60 }}
@@ -173,6 +180,11 @@ const ViewerCanvas = memo(({ renderReady, modelData, textureData, isLoading }) =
                     />
                     <pointLight position={[-10, 5, -10]} intensity={0.3} color="#ff6b6b" />
                     <pointLight position={[10, 5, 10]} intensity={0.3} color="#4ecdc4" />
+                    {/* Fill Light - Illuminates the entire scene */}
+                    <hemisphereLight 
+                        args={['#ffffff', '#444444', fillLightIntensity]} 
+                        position={[0, 20, 0]}
+                    />
                     
                     
                     {/* Model - Always use MultiModel to render all geometries */}
@@ -194,6 +206,8 @@ const ViewerCanvas = memo(({ renderReady, modelData, textureData, isLoading }) =
                         maxDistance={50}
                         dampingFactor={0.05}
                         enableDamping={true}
+                        screenSpacePanning={false}
+                        rotateSpeed={1.0}
                     />
 
                 </Canvas>
