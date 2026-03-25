@@ -47,9 +47,9 @@ const ModelViewer = () => {
     }, [renderReady]);
 
     return (
-        <div className="min-h-screen flex flex-col lg:flex-row">
+        <div className="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col lg:flex-row">
             {/* Header for mobile */}
-            <div className="lg:hidden bg-slate-800/50 backdrop-blur-sm border-b border-purple-500/20 p-4 flex justify-center">
+            <div className="lg:hidden flex-shrink-0 bg-slate-800/50 backdrop-blur-sm border-b border-purple-500/20 p-4 flex justify-center">
                 <div className="relative inline-block">
                     <div className="absolute inset-0 bg-slate-900/90 rounded-full blur-sm"></div>
                     <img src="/DFFinity-logo.png" alt="DFFinity Logo" className="h-14 relative z-10" />
@@ -57,7 +57,7 @@ const ModelViewer = () => {
             </div>
 
             {/* Sidebar */}
-            <div className="lg:w-96 lg:min-h-screen bg-slate-800/30 backdrop-blur-sm border-r border-purple-500/20">
+            <div className="lg:w-96 lg:h-full lg:overflow-y-auto lg:flex-shrink-0 bg-slate-800/30 backdrop-blur-sm border-r border-purple-500/20 scrollbar-thin scrollbar-thumb-purple-500/20 scrollbar-track-transparent">
                 <div className="p-6">
                     {/* Logo/Title for desktop */}
                     <div className="hidden lg:block mb-8 text-center">
@@ -89,8 +89,8 @@ const ModelViewer = () => {
             </div>
 
             {/* Main Content Area - Unified Viewer */}
-            <div className="flex-1 flex flex-col">
-                <div className="flex-1">
+            <div className="flex-1 flex flex-col lg:h-full lg:overflow-hidden relative">
+                <div className="flex-1 h-full w-full relative">
                     <ErrorBoundary>
                         <ViewerCanvas 
                             renderReady={renderReady} 

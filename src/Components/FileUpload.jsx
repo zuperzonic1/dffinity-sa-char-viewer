@@ -23,6 +23,18 @@ const FileUpload = memo(({ setModelData, setTextureData, setIsLoading, resetTrig
         }
     }, [resetTrigger]);
 
+    const handleDownloadSample = () => {
+        const files = ['truth.dff', 'truth.txd'];
+        files.forEach(file => {
+            const link = document.createElement('a');
+            link.href = `/${file}`;
+            link.download = file;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    };
+
     const processDFFWithMultiMesh = (parsedModelData) => {
         if (!parsedModelData) return parsedModelData;
 
@@ -180,6 +192,19 @@ const FileUpload = memo(({ setModelData, setTextureData, setIsLoading, resetTrig
 
     return (
         <div className="space-y-6">
+            {/* Sample Model Section */}
+            <div className="p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl mb-6">
+                <h3 className="text-white font-semibold mb-2 flex items-center gap-2">
+                    <span>🚀</span> Quick Start
+                </h3>
+                <button
+                    onClick={handleDownloadSample}
+                    className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+                >
+                    <span>Download Sample Data</span>
+                </button>
+            </div>
+
             {/* DFF File Section */}
             <div
                 className={`bg-slate-700/30 backdrop-blur-sm rounded-xl p-4 border transition-all duration-200 relative ${

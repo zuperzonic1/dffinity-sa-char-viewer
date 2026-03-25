@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { ArcballControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { useState, useRef, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
@@ -196,18 +196,16 @@ const ViewerCanvas = memo(({ renderReady, modelData, textureData, isLoading }) =
                         wireframe={wireframe}
                     />
                     
-                    {/* Controls */}
-                    <OrbitControls 
+                    {/* Controls - ArcballControls for free rotation without gimbal lock */}
+                    <ArcballControls 
                         ref={controlsRef}
                         enablePan={true} 
                         enableZoom={true}
                         enableRotate={true}
                         minDistance={1}
                         maxDistance={50}
-                        dampingFactor={0.05}
-                        enableDamping={true}
-                        screenSpacePanning={false}
-                        rotateSpeed={1.0}
+                        enableDamping={false}
+                        makeDefault
                     />
 
                 </Canvas>
